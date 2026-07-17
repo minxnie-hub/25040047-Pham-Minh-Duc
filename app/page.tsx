@@ -1,126 +1,150 @@
-import Image from "next/image";
 import Link from "next/link";
 import {
   ArrowDown,
   ArrowUpRight,
   BookOpenText,
-  ChalkboardTeacher,
-  CheckCircle,
+  Check,
   FileText,
   GraduationCap,
-  Sparkle,
+  Quotes,
 } from "@phosphor-icons/react/dist/ssr";
-import { assignments, asset, student } from "@/data/site";
+import { assignments, student } from "@/data/site";
 import { Reveal } from "@/components/Reveal";
 
-const accentClass = {
-  navy: "bg-[var(--ink)] text-[var(--white)]",
-  green: "bg-[var(--chalk)] text-[var(--white)]",
-  red: "bg-[var(--teacher-red)] text-[var(--white)]",
-  gold: "bg-[var(--highlighter)] text-[var(--ink)]",
+const focusTone = {
+  navy: "text-[var(--ink)]",
+  green: "text-[var(--forest)]",
+  red: "text-[var(--burgundy)]",
+  gold: "text-[#8a651d]",
 };
 
 export default function HomePage() {
   return (
     <main id="main-content">
-      <section className="relative overflow-hidden border-b-4 border-[var(--ink)] bg-[var(--white)]">
-        <div className="container-page grid min-h-[calc(100vh-64px)] gap-12 py-14 lg:grid-cols-[1.05fr_.95fr] lg:items-center lg:py-20">
+      <section className="relative overflow-hidden border-b border-[var(--line-strong)] bg-[var(--paper-soft)]">
+        <div className="pointer-events-none absolute -right-10 top-12 hidden select-none font-serif text-[24rem] leading-none text-[rgba(49,88,74,.045)] lg:block" aria-hidden="true">
+          Aa
+        </div>
+
+        <div className="container-page grid min-h-[calc(100vh-72px)] gap-12 py-16 lg:grid-cols-[minmax(0,1.32fr)_minmax(320px,.68fr)] lg:items-center lg:py-20">
           <Reveal>
-            <div className="mb-8 flex items-center gap-3">
-              <span className="note-label text-[var(--teacher-red)]">Portfolio học tập</span>
-              <span className="h-px flex-1 bg-[rgba(20,40,60,.25)]" />
-            </div>
-            <h1 className="display-font max-w-5xl text-[clamp(3.4rem,9vw,8.2rem)] leading-[.84]">
-              Ngôn ngữ, <span className="teacher-underline">công nghệ</span> và cách học có hệ thống.
+            <p className="eyebrow mb-8">Portfolio học tập · 2026</p>
+            <h1 className="display-font max-w-[900px] text-[clamp(3.3rem,6.8vw,6.9rem)] leading-[.96]">
+              Học ngôn ngữ.<br />Dạy bằng <span className="teacher-underline">phương pháp.</span>
             </h1>
-            <p className="mt-8 max-w-2xl text-lg leading-8 text-[var(--ink-soft)] sm:text-xl">
-              Mình là <strong>{student.name}</strong>, sinh viên ngành <strong>{student.major}</strong>. Portfolio này hệ thống hóa các bài thực hành của học phần {student.course}.
+            <p className="mt-8 max-w-[680px] text-lg leading-8 text-[var(--ink-soft)] sm:text-xl">
+              Mình là <strong className="text-[var(--ink)]">{student.name}</strong>, sinh viên ngành <strong className="text-[var(--ink)]">{student.major}</strong>. Đây là hồ sơ ghi lại sáu bài thực hành của học phần {student.course}, từ kỹ năng số nền tảng đến sử dụng AI có trách nhiệm.
             </p>
-            <div className="mt-9 flex flex-wrap gap-3">
-              <a href="#bai-tap" className="inline-flex min-h-12 items-center gap-2 border-2 border-[var(--ink)] bg-[var(--ink)] px-5 py-3 font-bold text-[var(--white)] shadow-[5px_5px_0_var(--highlighter)] transition-transform hover:-translate-y-1">
-                Xem các bài tập <ArrowDown size={20} />
+
+            <div className="mt-10 flex flex-wrap items-center gap-5">
+              <a href="#bai-tap" className="inline-flex min-h-12 items-center gap-2 rounded-full bg-[var(--ink)] px-6 py-3 font-semibold text-[var(--white)] transition-transform hover:-translate-y-0.5">
+                Xem bài tập <ArrowDown size={19} />
               </a>
-              <a href={`mailto:${student.email}`} className="inline-flex min-h-12 items-center gap-2 border-2 border-[var(--ink)] bg-[var(--white)] px-5 py-3 font-bold transition-transform hover:-translate-y-1">
-                Liên hệ <ArrowUpRight size={20} />
+              <a href={`mailto:${student.email}`} className="inline-flex min-h-12 items-center gap-2 border-b border-[var(--ink)] px-1 py-2 font-semibold">
+                Liên hệ <ArrowUpRight size={18} />
               </a>
+            </div>
+
+            <div className="mt-14 grid max-w-[780px] grid-cols-2 gap-x-8 gap-y-5 border-t border-[var(--line)] pt-6 sm:grid-cols-4">
+              {[
+                ["Major", student.major],
+                ["Faculty", "Ngôn ngữ & VH Anh"],
+                ["Coursework", "6 bài thực hành"],
+                ["Student ID", student.studentId],
+              ].map(([label, value]) => (
+                <div key={label}>
+                  <p className="mono-font text-[0.62rem] uppercase tracking-[0.12em] text-[var(--burgundy)]">{label}</p>
+                  <p className="mt-1 text-sm font-semibold leading-5">{value}</p>
+                </div>
+              ))}
             </div>
           </Reveal>
 
-          <Reveal className="relative min-h-[510px] sm:min-h-[620px]">
-            <div className="absolute left-[4%] top-[4%] w-[82%] rotate-[-3deg] border border-[var(--ink)] bg-[var(--white)] p-2 shadow-[14px_14px_0_rgba(20,40,60,.16)]">
-              <Image src={asset("/assets/bai-1/03-tao-thu-muc.png")} width={1299} height={812} alt="Ảnh minh chứng tạo thư mục trong Bài 1" priority className="w-full" />
-              <p className="mono-font px-2 py-2 text-xs uppercase tracking-[0.08em]">Minh chứng thao tác số</p>
+          <Reveal className="relative">
+            <div className="border border-[var(--line-strong)] bg-[var(--white)] p-7 shadow-[var(--shadow-soft)] sm:p-9">
+              <div className="flex items-start justify-between gap-6 border-b border-[var(--line)] pb-6">
+                <div>
+                  <p className="mono-font text-[0.64rem] uppercase tracking-[0.13em] text-[var(--burgundy)]">Course record</p>
+                  <h2 className="display-font mt-2 text-3xl leading-tight">Learn · Teach · Reflect</h2>
+                </div>
+                <span className="display-font text-4xl text-[var(--forest)]">/6</span>
+              </div>
+
+              <ol className="mt-2">
+                {assignments.map((assignment) => (
+                  <li key={assignment.slug} className="border-b border-[var(--line)] last:border-b-0">
+                    <Link href={`/${assignment.slug}`} className="group grid grid-cols-[38px_1fr_auto] items-center gap-3 py-4">
+                      <span className="mono-font text-[0.67rem] text-[var(--burgundy)]">{assignment.number}</span>
+                      <span className="text-sm font-semibold leading-5 transition-transform group-hover:translate-x-1">{assignment.title}</span>
+                      <ArrowUpRight size={16} className="text-[var(--ink-soft)]" />
+                    </Link>
+                  </li>
+                ))}
+              </ol>
+
+              <div className="mt-5 flex items-center justify-between gap-4 bg-[var(--sky)] px-4 py-3 text-sm">
+                <span className="mono-font text-[0.66rem] uppercase tracking-[0.1em]">/lɜːn/ → /tiːtʃ/ → /rɪˈflɛkt/</span>
+                <BookOpenText size={20} className="shrink-0 text-[var(--forest)]" />
+              </div>
             </div>
-            <div className="absolute bottom-[9%] right-[1%] w-[76%] rotate-[4deg] border border-[var(--ink)] bg-[var(--white)] p-2 shadow-[-10px_12px_0_rgba(162,61,53,.18)]">
-              <Image src={asset("/assets/bai-3/thu-nghiem-01.png")} width={1299} height={671} alt="Ảnh thử nghiệm prompt trong Bài 3" className="w-full" />
-              <p className="mono-font px-2 py-2 text-xs uppercase tracking-[0.08em]">Thử nghiệm và so sánh prompt</p>
-            </div>
-            <div className="absolute right-[2%] top-[2%] rotate-[6deg] border-2 border-[var(--teacher-red)] bg-[var(--paper)] px-4 py-2 font-semibold text-[var(--teacher-red)]">Reviewed</div>
-            <div className="absolute bottom-[2%] left-[7%] -rotate-2 bg-[var(--highlighter)] px-4 py-2 font-semibold shadow-[4px_4px_0_var(--ink)]">Bài tập học phần · hồ sơ số</div>
           </Reveal>
         </div>
       </section>
 
       <section id="gioi-thieu" className="container-page py-24 lg:py-32">
         <Reveal>
-          <div className="grid gap-8 lg:grid-cols-[.72fr_1.28fr] lg:gap-16">
+          <div className="grid gap-12 lg:grid-cols-[.82fr_1.18fr] lg:gap-20">
             <div>
-              <p className="mono-font mb-5 text-xs uppercase tracking-[0.14em] text-[var(--teacher-red)]">Một chút về mình</p>
-              <h2 className="display-font text-5xl leading-[.98] sm:text-6xl">Học để hiểu, trình bày để ghi nhớ.</h2>
-            </div>
-            <div className="paper-panel p-8 pl-14 sm:p-12 sm:pl-20">
-              <div className="relative z-10 grid gap-7 sm:grid-cols-2">
-                <div>
-                  <GraduationCap size={30} className="mb-3 text-[var(--chalk)]" />
-                  <h3 className="mb-2 font-bold">Thông tin học tập</h3>
-                  <p>{student.name} · MSSV {student.studentId}</p>
-                  <p>{student.major}</p>
-                  <p>{student.faculty}</p>
-                  <p>{student.school}</p>
-                </div>
-                <div>
-                  <ChalkboardTeacher size={30} className="mb-3 text-[var(--teacher-red)]" />
-                  <h3 className="mb-2 font-bold">Định hướng portfolio</h3>
-                  <p>Hệ thống hóa sản phẩm học tập, giữ lại minh chứng và trình bày quá trình thực hiện theo từng kỹ năng.</p>
-                </div>
-                <div>
-                  <BookOpenText size={30} className="mb-3 text-[var(--chalk)]" />
-                  <h3 className="mb-2 font-bold">Mục tiêu học tập</h3>
-                  <p>Rèn kỹ năng số, tìm kiếm học thuật, viết prompt, cộng tác trực tuyến và sử dụng AI có trách nhiệm.</p>
-                </div>
-                <div>
-                  <FileText size={30} className="mb-3 text-[var(--teacher-red)]" />
-                  <h3 className="mb-2 font-bold">Nguyên tắc trình bày</h3>
-                  <p>Nội dung được chuyển thành trang web; bảng được dựng lại, hình minh chứng đặt ngay sau phần nội dung liên quan.</p>
-                </div>
+              <p className="eyebrow mb-7">Giới thiệu</p>
+              <h2 className="display-font max-w-lg text-5xl leading-[1.03] sm:text-6xl">Một hồ sơ học tập có bằng chứng, không chỉ có kết quả.</h2>
+              <div className="mt-9 flex gap-4 border-l-2 border-[var(--burgundy)] pl-5 text-[var(--ink-soft)]">
+                <Quotes size={25} className="mt-1 shrink-0 text-[var(--burgundy)]" />
+                <p className="max-w-md text-lg leading-8">Mỗi bài được trình bày theo đúng trình tự: mục tiêu, quá trình thực hiện, bảng tổng hợp và minh chứng liên quan.</p>
               </div>
+            </div>
+
+            <div className="grid gap-0 border-y border-[var(--line-strong)] sm:grid-cols-2">
+              {[
+                [GraduationCap, "Thông tin học tập", `${student.name} · MSSV ${student.studentId}`, `${student.major} · ${student.faculty}`],
+                [BookOpenText, "Mục tiêu", "Rèn kỹ năng số, tìm kiếm học thuật và viết prompt có cấu trúc.", "Kết nối công nghệ với việc học và dạy ngôn ngữ."],
+                [FileText, "Cách trình bày", "Nội dung tài liệu được chuyển thành trang web theo từng bài.", "Bảng được dựng lại; ảnh đặt cạnh nội dung tương ứng."],
+                [Check, "Nguyên tắc", "Không thêm dữ kiện ngoài tài liệu gốc.", "Ưu tiên rõ ràng, dễ đọc và dễ kiểm chứng."],
+              ].map(([Icon, title, line1, line2], index) => (
+                <div key={String(title)} className={`min-h-[210px] p-7 ${index % 2 === 0 ? "sm:border-r" : ""} ${index < 2 ? "border-b" : ""} border-[var(--line)]`}>
+                  <Icon size={25} className="mb-6 text-[var(--forest)]" />
+                  <h3 className="display-font mb-4 text-2xl">{String(title)}</h3>
+                  <p className="text-sm leading-6 text-[var(--ink-soft)]">{String(line1)}</p>
+                  <p className="mt-2 text-sm leading-6 text-[var(--ink-soft)]">{String(line2)}</p>
+                </div>
+              ))}
             </div>
           </div>
         </Reveal>
       </section>
 
-      <section id="bai-tap" className="border-y-4 border-[var(--ink)] bg-[var(--white)] py-24 lg:py-32">
+      <section id="bai-tap" className="border-y border-[var(--line-strong)] bg-[var(--white)] py-24 lg:py-32">
         <div className="container-page">
           <Reveal>
-            <div className="mb-14 max-w-4xl">
-              <h2 className="display-font text-5xl leading-[.95] sm:text-7xl">Bài tập học phần, những lát cắt của năng lực số.</h2>
-              <p className="mt-6 max-w-2xl text-lg text-[var(--ink-soft)]">Mỗi bài là một trang riêng, giữ đúng trình tự nội dung, bảng biểu và minh chứng trong tài liệu gốc.</p>
+            <div className="grid gap-8 border-b border-[var(--line-strong)] pb-10 lg:grid-cols-[.7fr_1.3fr] lg:items-end">
+              <p className="eyebrow">Bài tập</p>
+              <div>
+                <h2 className="display-font max-w-4xl text-5xl leading-[1.02] sm:text-6xl">Sáu bài, sáu năng lực số được ghi lại thành một hành trình.</h2>
+                <p className="mt-5 max-w-2xl text-lg leading-8 text-[var(--ink-soft)]">Mỗi mục mở thành một trang riêng, giữ nguyên nội dung, bảng biểu và hình minh chứng trong tài liệu.</p>
+              </div>
             </div>
           </Reveal>
 
-          <div className="border-t-2 border-[var(--ink)]">
-            {assignments.map((assignment, index) => (
+          <div>
+            {assignments.map((assignment) => (
               <Reveal key={assignment.slug}>
-                <Link href={`/${assignment.slug}`} className="group grid min-h-[190px] gap-5 border-b-2 border-[var(--ink)] py-7 transition-colors hover:bg-[var(--paper)] md:grid-cols-[100px_minmax(0,1fr)_230px_56px] md:items-center">
-                  <span className="display-font text-5xl text-[var(--teacher-red)]">{assignment.number}</span>
+                <Link href={`/${assignment.slug}`} className="group grid gap-5 border-b border-[var(--line)] py-7 transition-colors hover:bg-[var(--paper-soft)] md:grid-cols-[64px_minmax(0,1fr)_230px_36px] md:items-center md:px-3">
+                  <span className="display-font text-3xl text-[var(--burgundy)]">{assignment.number}</span>
                   <div>
-                    <span className={`note-label mb-4 ${accentClass[assignment.accent]}`}>{assignment.focus}</span>
-                    <h3 className="display-font max-w-3xl text-3xl leading-[1.05] sm:text-4xl">{assignment.title}</h3>
+                    <p className={`mono-font mb-2 text-[0.66rem] uppercase tracking-[0.11em] ${focusTone[assignment.accent]}`}>{assignment.focus}</p>
+                    <h3 className="display-font max-w-3xl text-2xl leading-[1.12] sm:text-3xl">{assignment.title}</h3>
                   </div>
                   <p className="text-sm leading-6 text-[var(--ink-soft)]">{assignment.summary}</p>
-                  <span className="grid h-12 w-12 place-items-center border-2 border-[var(--ink)] bg-[var(--white)] transition-transform duration-200 group-hover:-translate-y-1 group-hover:translate-x-1" aria-hidden="true">
-                    <ArrowUpRight size={24} />
-                  </span>
+                  <ArrowUpRight size={21} className="transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
                 </Link>
               </Reveal>
             ))}
@@ -130,39 +154,40 @@ export default function HomePage() {
 
       <section id="tong-ket" className="container-page py-24 lg:py-32">
         <Reveal>
-          <div className="grid gap-10 lg:grid-cols-[1fr_1fr] lg:items-start">
-            <div className="lg:sticky lg:top-28">
-              <p className="mono-font mb-5 text-xs uppercase tracking-[0.14em] text-[var(--teacher-red)]">Tổng kết</p>
-              <h2 className="display-font max-w-xl text-5xl leading-[.97] sm:text-6xl">Điểm chung của các bài là tư duy có quy trình.</h2>
+          <div className="grid gap-12 lg:grid-cols-[.86fr_1.14fr] lg:gap-20">
+            <div>
+              <p className="eyebrow mb-7">Tổng kết</p>
+              <h2 className="display-font max-w-xl text-5xl leading-[1.03] sm:text-6xl">Điểm chung là tư duy có quy trình.</h2>
+              <p className="mt-6 max-w-lg text-lg leading-8 text-[var(--ink-soft)]">Từ quản lý tệp tin đến đánh giá đầu ra AI, mỗi bài đều yêu cầu ghi lại cách làm, kiểm chứng kết quả và tự phản ánh.</p>
             </div>
-            <div className="space-y-4">
+
+            <ol className="border-t border-[var(--line-strong)]">
               {[
-                ["01", "Từ thao tác đến hệ thống", "Bài 1 bắt đầu bằng kỹ năng tệp tin; Bài 4 mở rộng sang tổ chức công việc nhóm và tài nguyên số."],
-                ["02", "Từ tìm kiếm đến đánh giá", "Bài 2 nhấn mạnh nguồn đáng tin cậy; Bài 5 và Bài 6 tiếp tục yêu cầu kiểm chứng đầu ra của AI."],
-                ["03", "Từ câu lệnh đến trách nhiệm", "Bài 3 cho thấy cấu trúc prompt ảnh hưởng đến chất lượng đầu ra; Bài 6 đặt thêm giới hạn đạo đức và minh bạch."],
+                ["01", "Từ thao tác đến hệ thống", "Bài 1 đặt nền tảng quản lý tệp; Bài 4 mở rộng sang nhiệm vụ, tài liệu và giao tiếp nhóm."],
+                ["02", "Từ tìm kiếm đến đánh giá", "Bài 2 tập trung vào độ tin cậy của nguồn; Bài 5 và 6 tiếp tục yêu cầu kiểm chứng đầu ra AI."],
+                ["03", "Từ câu lệnh đến trách nhiệm", "Bài 3 cho thấy cấu trúc prompt quyết định chất lượng; Bài 6 bổ sung ranh giới đạo đức và minh bạch."],
               ].map(([number, title, body]) => (
-                <div key={number} className="grid gap-4 border border-[var(--ink)] bg-[var(--white)] p-6 sm:grid-cols-[64px_1fr]">
-                  <span className="display-font text-4xl text-[var(--teacher-red)]">{number}</span>
-                  <div><h3 className="mb-2 text-lg font-bold">{title}</h3><p className="text-[var(--ink-soft)]">{body}</p></div>
-                </div>
+                <li key={number} className="grid gap-4 border-b border-[var(--line)] py-7 sm:grid-cols-[52px_1fr]">
+                  <span className="mono-font pt-1 text-xs text-[var(--burgundy)]">{number}</span>
+                  <div>
+                    <h3 className="display-font text-2xl">{title}</h3>
+                    <p className="mt-2 max-w-2xl leading-7 text-[var(--ink-soft)]">{body}</p>
+                  </div>
+                </li>
               ))}
-              <div className="flex items-start gap-4 bg-[var(--chalk)] p-6 text-[var(--white)]">
-                <CheckCircle size={30} weight="fill" className="mt-1 shrink-0 text-[var(--highlighter)]" />
-                <p className="text-lg">Portfolio hoàn thiện không chỉ lưu sản phẩm cuối cùng mà còn giữ lại cách thực hiện, tiêu chí đánh giá và bằng chứng của từng bước.</p>
-              </div>
-            </div>
+            </ol>
           </div>
         </Reveal>
       </section>
 
-      <section className="border-t border-[rgba(20,40,60,.25)] bg-[var(--blue-wash)]">
-        <div className="container-page flex flex-col gap-5 py-10 sm:flex-row sm:items-center sm:justify-between">
-          <div className="flex items-center gap-3">
-            <Sparkle size={26} className="text-[var(--teacher-red)]" />
-            <p className="font-semibold">Bắt đầu từ Bài 1 hoặc chọn trực tiếp một chủ đề trong danh mục.</p>
+      <section className="border-t border-[var(--line-strong)] bg-[var(--sky)]">
+        <div className="container-page flex flex-col gap-6 py-11 sm:flex-row sm:items-center sm:justify-between">
+          <div>
+            <p className="mono-font text-[0.65rem] uppercase tracking-[0.11em] text-[var(--forest)]">Start here</p>
+            <p className="mt-1 font-semibold">Mở Bài 1 hoặc chọn trực tiếp một chủ đề trong danh mục.</p>
           </div>
-          <Link href="/bai-1" className="inline-flex min-h-12 items-center justify-center gap-2 border-2 border-[var(--ink)] bg-[var(--white)] px-5 py-3 font-bold shadow-[4px_4px_0_var(--ink)]">
-            Mở Bài 1 <ArrowUpRight size={20} />
+          <Link href="/bai-1" className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-[var(--ink)] px-6 py-3 font-semibold text-[var(--white)]">
+            Mở Bài 1 <ArrowUpRight size={18} />
           </Link>
         </div>
       </section>
